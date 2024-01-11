@@ -1,4 +1,4 @@
-package com.project.springboot.main.Dao;
+package com.project.springboot.main.dao;
 
 
 import com.project.springboot.main.model.User;

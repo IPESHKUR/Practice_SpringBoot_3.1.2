@@ -1,6 +1,6 @@
 package com.project.springboot.main.service;
 
-import com.project.springboot.main.Dao.UserDao;
+import com.project.springboot.main.dao.UserDao;
 import com.project.springboot.main.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
 
         return userDao.getAllUsers();

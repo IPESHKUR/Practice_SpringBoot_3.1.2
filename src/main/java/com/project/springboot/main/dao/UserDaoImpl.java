@@ -1,9 +1,10 @@
-package com.project.springboot.main.Dao;
+package com.project.springboot.main.dao;
 
 import com.project.springboot.main.model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -14,7 +15,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(Long id) {
-        return entityManager.find(User.class, id);
+        User user = entityManager.find(User.class, id);
+        if (user == null) {
+            throw new EntityNotFoundException("User with this ID not found");
+        }
+        return user;
     }
 
     @Override
@@ -30,11 +35,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deleteUsers(Long id) {
         User user = entityManager.find(User.class, id);
+        if (user == null) {
+            throw new EntityNotFoundException("It is not possible to delete a user with this ID");
+        }
         entityManager.remove(user);
     }
 
     @Override
     public void updateUser(User user) {
+        if (user == null) {
+            throw new EntityNotFoundException("It is not possible to update this user");
+        }
         entityManager.merge(user);
     }
 }
