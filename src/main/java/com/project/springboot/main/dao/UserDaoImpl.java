@@ -43,7 +43,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        if (user == null) {
+        User userFromDB = entityManager.find(User.class, user.getId());
+        if (userFromDB == null) {
             throw new EntityNotFoundException("It is not possible to update this user");
         }
         entityManager.merge(user);
